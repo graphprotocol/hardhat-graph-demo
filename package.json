@@ -38,7 +38,7 @@
     "typescript": "^4.7.3"
   },
   "scripts": {
-    "test": "graph test",
+    "graph-test": "graph test",
     "graph-local": "docker-compose up",
     "graph-local-rm": "docker-compose down -v && docker-compose rm -v && rm -rf data",
     "create-local": "graph create --node http://127.0.0.1:8020 nft-auction",
