@@ -1,0 +1,14 @@
+node_modules
+.env
+coverage
+coverage.json
+typechain
+
+#Hardhat files
+cache
+artifacts
+# Subgraph
+nft-auction/generated/
+nft-auction/build/
+# Matchstick
+nft-auction/tests/.*/
