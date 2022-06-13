@@ -1,0 +1,13 @@
+type Demo @entity {
+  id: ID!
+  owner: Bytes! # address
+  imageUrl: String!
+  transfers: [DemoTransfer!]! @derivedFrom(field: "token")
+}
+
+type DemoTransfer @entity {
+  id: ID!
+  token: Demo!
+  from: Bytes! # address
+  to: Bytes! # address
+}
