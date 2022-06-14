@@ -1,2 +1,2 @@
-testsFolder: nft-auction/tests
-manifestPath: nft-auction/subgraph.yaml
+testsFolder: nft-auction-subgraph/tests
+manifestPath: nft-auction-subgraph/subgraph.yaml

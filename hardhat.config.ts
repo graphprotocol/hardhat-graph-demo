@@ -35,7 +35,7 @@ const config = {
     name: "nft-auction",
   },
   paths: {
-    subgraph: "nft-auction",
+    subgraph: "nft-auction-subgraph",
   },
 };
 

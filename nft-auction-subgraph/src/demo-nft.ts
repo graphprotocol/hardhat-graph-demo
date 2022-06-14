@@ -19,18 +19,15 @@ export function handleTransfer(event: Transfer): void {
       if (imageUrl) {
         demo.imageUrl = imageUrl.toString();
       }
-    }
+    };
+
   }
+  demo.owner = event.params.to;
+  demo.save();
 
   const demoTransfer = new DemoTransfer(event.transaction.hash.toHexString());
   demoTransfer.from = event.params.from;
   demoTransfer.to = event.params.to;
   demoTransfer.token = demo.id;
   demoTransfer.save();
-
-  const transfers = new Array<string>();
-  transfers.push(event.transaction.hash.toHexString());
-  demo.transfers = transfers;
-  demo.owner = event.params.to;
-  demo.save();
 }

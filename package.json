@@ -38,6 +38,8 @@
     "typescript": "^4.7.3"
   },
   "scripts": {
+    "codegen": "cd nft-auction-subgraph && graph codegen",
+    "build": "cd nft-auction-subgraph && graph build",
     "graph-test": "graph test",
     "graph-local": "docker-compose up",
     "graph-local-rm": "docker-compose down -v && docker-compose rm -v && rm -rf data",

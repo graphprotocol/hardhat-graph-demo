@@ -1,11 +1,14 @@
 import {
   assert,
   beforeAll,
+  clearStore,
   describe,
   test,
   mockIpfsFile,
   newMockEvent,
   createMockedFunction,
+  afterAll,
+  logStore,
 } from "matchstick-as";
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { Demo } from "../generated/schema";
@@ -23,7 +26,11 @@ beforeAll(() => {
   .withArgs([tokenId])
   .returns([ethereum.Value.fromString("demoipfshash")]);
 
-  mockIpfsFile("demoipfshash", "./nft-auction/tests/.ipfs/demo-nft.json");
+  mockIpfsFile("demoipfshash", "./nft-auction-subgraph/tests/.ipfs/demo-nft.json");
+});
+
+afterAll(() => {
+  clearStore();
 });
 
 describe("Transfer DemoNFT event", () => {
@@ -102,5 +109,6 @@ describe("Transfer DemoNFT event", () => {
       "0x0000000000000000000000000000000000000002"
     );
     assert.fieldEquals("DemoTransfer", transferId, "token", "123");
+    logStore();
   });
 });
