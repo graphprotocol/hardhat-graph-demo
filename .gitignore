@@ -8,8 +8,8 @@ typechain
 cache
 artifacts
 # Subgraph
-nft-auction-subgraph/generated/
-nft-auction-subgraph/build/
+nft-auction-subgraph/generated
+nft-auction-subgraph/build
 # Matchstick
 nft-auction-subgraph/tests/.*/
 # Graph Local

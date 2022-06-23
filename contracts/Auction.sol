@@ -57,7 +57,8 @@ contract NFTAuction is Ownable, IERC721Receiver {
         IDemoNFT DemoNFT = IDemoNFT(tokenContractAddress);
         DemoNFT.mintDemo(_tokenId);
 
-        Auction memory auction = Auction(payable(_msgSender()), _tokenId, block.timestamp, 0);
+        uint256 startDate = block.timestamp;
+        Auction memory auction = Auction(payable(_msgSender()), startDate, startDate + duration, 0);
         tokenToAuction[_tokenId] = auction;
         tokenIsAuctioned[_tokenId] = true;
 
@@ -70,7 +71,8 @@ contract NFTAuction is Ownable, IERC721Receiver {
         IDemoNFT DemoNFT = IDemoNFT(tokenContractAddress);
         DemoNFT.safeTransferFrom(_msgSender(), address(this), _tokenId);
 
-        Auction memory auction = Auction(payable(_msgSender()), _tokenId, block.timestamp, _startPrice);
+        uint256 startDate = block.timestamp;
+        Auction memory auction = Auction(payable(_msgSender()), startDate, startDate + duration, _startPrice);
         tokenToAuction[_tokenId] = auction;
         tokenIsAuctioned[_tokenId] = true;
 
