@@ -1,16 +1,12 @@
 import {
   assert,
   beforeAll,
-  clearStore,
   describe,
   test,
-  mockIpfsFile,
   newMockEvent,
-  createMockedFunction,
-  afterAll,
 } from "matchstick-as";
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
-import { Auction } from "../generated/schema";
+// import { Auction } from "../generated/schema";
 import { AuctionStarted } from "../generated/NFTAuction/NFTAuction";
 import { handleAuctionStarted } from "../src/nft-auction";
 
@@ -39,8 +35,11 @@ describe("AuctionStarted event", () => {
       )
     );
     event.parameters.push(
-      new ethereum.EventParam("startPrice", ethereum.Value.fromUnsignedBigInt(BigInt.fromI64(500000000000000000)))
-    )
+      new ethereum.EventParam(
+        "startPrice",
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI64(500000000000000000))
+      )
+    );
 
     handleAuctionStarted(event);
   });

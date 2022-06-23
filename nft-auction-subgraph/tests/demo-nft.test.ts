@@ -4,14 +4,12 @@ import {
   clearStore,
   describe,
   test,
-  mockIpfsFile,
   newMockEvent,
-  createMockedFunction,
   afterAll,
 } from "matchstick-as";
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { Demo } from "../generated/schema";
-import { Transfer } from "../generated/DemoNFT/DemoNFT";
+import { Transfer as TransferEvent } from "../generated/DemoNFT/DemoNFT";
 import { handleTransfer } from "../src/demo-nft";
 
 // beforeAll(() => {
@@ -34,8 +32,10 @@ afterAll(() => {
 
 describe("DemoNFT Transfer event", () => {
   beforeAll(() => {
-    const transferEvent = changetype<Transfer>(newMockEvent());
-    transferEvent.address = Address.fromString("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0");
+    const transferEvent = changetype<TransferEvent>(newMockEvent());
+    transferEvent.address = Address.fromString(
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    );
     transferEvent.parameters = [];
     transferEvent.parameters.push(
       new ethereum.EventParam(

@@ -40,6 +40,8 @@ dataSources:
         - name: NFTAuction
           file: ./abis/NFTAuction.json
       eventHandlers:
-        - event: AuctionStarted(address,uint256,uint256,uint256)
+        - event: AuctionStarted(uint256,address,uint256,uint256,uint256)
           handler: handleAuctionStarted
+        - event: Bid(uint256,uint256,address,uint256)
+          handler: handleBid
       file: ./src/nft-auction.ts

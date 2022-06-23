@@ -2,11 +2,11 @@ type Demo @entity {
   id: ID!
   owner: Bytes! # address
   imageUrl: String!
-  transfers: [DemoTransfer!]! @derivedFrom(field: "token")
+  transfers: [Transfer!]! @derivedFrom(field: "token")
   auctions: [Auction!]! @derivedFrom(field: "token")
 }
 
-type DemoTransfer @entity {
+type Transfer @entity {
   id: ID!
   token: Demo!
   from: Bytes! # address
@@ -15,7 +15,7 @@ type DemoTransfer @entity {
 
 type Auction @entity {
   id: ID!
-  seller: Bytes! # address
+  creator: Bytes! # address
   winner: Bytes # address
   token: Demo!
   startDate: BigInt!
@@ -23,5 +23,12 @@ type Auction @entity {
   status: String!
   startPrice: BigInt!
   finalPrice: BigInt
-#  bids: [Bid!]! @derivedFrom(field: "auction")
+  bids: [Bid!]! @derivedFrom(field: "auction")
+}
+
+type Bid @entity {
+  id: ID!
+  auction: Auction!
+  bidder: Bytes! # address
+  amount: BigInt!
 }

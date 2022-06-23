@@ -1,7 +1,7 @@
-import { Transfer } from "../generated/DemoNFT/DemoNFT";
-import { DemoTransfer, Demo } from "../generated/schema";
+import { Transfer as TransferEvent } from "../generated/DemoNFT/DemoNFT";
+import { Transfer, Demo } from "../generated/schema";
 
-export function handleTransfer(event: Transfer): void {
+export function handleTransfer(event: TransferEvent): void {
   const id = event.params.tokenId.toString();
   let demo = Demo.load(id);
 
@@ -12,7 +12,7 @@ export function handleTransfer(event: Transfer): void {
   demo.owner = event.params.to;
   demo.save();
 
-  const demoTransfer = new DemoTransfer(event.transaction.hash.toHexString());
+  const demoTransfer = new Transfer(event.transaction.hash.toHexString());
   demoTransfer.from = event.params.from;
   demoTransfer.to = event.params.to;
   demoTransfer.token = id;
