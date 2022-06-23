@@ -4,7 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
-import networks from "/Users/maksimdimitrov/Projects/hardhat-graph-demo/nft-auction-subgraph/networks.json";
+import networks from "../nft-auction-subgraph/networks.json";
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -17,19 +17,19 @@ async function main() {
   // We get the contract to deploy
 
   const Auction = await ethers.getContractFactory("NFTAuction");
-  const auction = await Auction.attach(networks.localhost.NFTAuction.address);
+  const auction = Auction.attach(networks.localhost.NFTAuction.address);
 
   // await auction.deployed();
 
   const Demo = await ethers.getContractFactory("DemoNFT");
-  const demo = await Demo.attach(networks.localhost.DemoNFT.address);
+  const demo = Demo.attach(networks.localhost.DemoNFT.address);
 
   // await demo.deployed();
 
   await demo.authorizeAuction(auction.address);
   await auction.setTokenAddress(demo.address);
 
-  await auction["startAuction(uint256)"](3, {
+  await auction["startAuction(uint256)"](1, {
     value: ethers.utils.parseEther("0.01"),
   });
 }

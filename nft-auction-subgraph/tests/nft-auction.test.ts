@@ -10,7 +10,6 @@ import {
   afterAll,
 } from "matchstick-as";
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
-import { Date } from "assemblyscript/std/assembly/date";
 import { Auction } from "../generated/schema";
 import { AuctionStarted } from "../generated/NFTAuction/NFTAuction";
 import { handleAuctionStarted } from "../src/nft-auction";
@@ -33,12 +32,38 @@ describe("AuctionStarted event", () => {
     event.parameters.push(
       new ethereum.EventParam("tokenId", ethereum.Value.fromI32(2))
     );
-    const now = Date.now();
     event.parameters.push(
       new ethereum.EventParam(
         "startDate",
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI64(now))
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI64(11111111111))
       )
+    );
+    event.parameters.push(
+      new ethereum.EventParam("startPrice", ethereum.Value.fromUnsignedBigInt(BigInt.fromI64(500000000000000000)))
+    )
+
+    handleAuctionStarted(event);
+  });
+
+  test("AuctionStarted event should create a new auction", () => {
+    assert.entityCount("Auction", 1);
+  });
+
+  test("Auction should have the correct values", () => {
+    const auctionId = "0x0000000000000000000000000000000000000001-2";
+    assert.fieldEquals(
+      "Auction",
+      auctionId,
+      "seller",
+      "0x0000000000000000000000000000000000000001"
+    );
+    assert.fieldEquals("Auction", auctionId, "token", "2");
+    assert.fieldEquals("Auction", auctionId, "startDate", "11111111111");
+    assert.fieldEquals(
+      "Auction",
+      auctionId,
+      "startPrice",
+      "500000000000000000"
     );
   });
 });
