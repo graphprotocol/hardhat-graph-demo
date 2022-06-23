@@ -11,7 +11,7 @@ artifacts
 nft-auction-subgraph/generated
 nft-auction-subgraph/build
 # Matchstick
-nft-auction-subgraph/tests/.*/
+nft-auction-subgraph/tests/.*
 # Graph Local
 data/ipfs/*
 data/postgres/*
