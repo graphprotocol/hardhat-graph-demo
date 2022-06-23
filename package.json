@@ -1,7 +1,7 @@
 {
   "name": "hardhat-project",
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.30.3",
+    "@graphprotocol/graph-cli": "^0.31.0",
     "@graphprotocol/graph-ts": "^0.27.0",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-etherscan": "^3.1.0",
@@ -42,9 +42,9 @@
     "build": "cd nft-auction-subgraph && graph build",
     "graph-test": "graph test",
     "graph-local": "docker-compose up",
-    "graph-local-rm": "docker-compose down -v && docker-compose rm -v && rm -rf data",
+    "graph-local-clean": "docker-compose down -v && docker-compose rm -v && rm -rf data/ipfs data/postgres",
     "create-local": "graph create --node http://127.0.0.1:8020 nft-auction",
-    "deploy-local": "graph deploy --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 nft-auction nft-auction/subgraph.yaml",
+    "deploy-local": "cd nft-auction-subgraph && graph deploy --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 nft-auction",
     "hardhat-local": "hardhat node --hostname 0.0.0.0"
   }
 }

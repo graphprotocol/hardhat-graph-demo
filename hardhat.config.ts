@@ -31,6 +31,13 @@ const deploy = async (hre: any, contractName: string): Promise<string> => {
 
 const config = {
   solidity: "0.8.4",
+  defaultNetwork: "localhost",
+  networks: {
+    localhost: {
+      url: "http://0.0.0.0:8545",
+    },
+    hardhat: {},
+  },
   subgraph: {
     name: "nft-auction",
   },

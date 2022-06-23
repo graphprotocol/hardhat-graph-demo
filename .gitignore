@@ -8,7 +8,10 @@ typechain
 cache
 artifacts
 # Subgraph
-nft-auction/generated/
-nft-auction/build/
+nft-auction-subgraph/generated/
+nft-auction-subgraph/build/
 # Matchstick
-nft-auction/tests/.*/
+nft-auction-subgraph/tests/.*/
+# Graph Local
+data/ipfs/*
+data/postgres/*

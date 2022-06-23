@@ -1,17 +1,26 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract DemoNFT is ERC721URIStorage, Ownable {
+contract DemoNFT is ERC721, Ownable {
+    address private authorizedAuction;
+
+    modifier onlyAuction() {
+        require (_msgSender() == authorizedAuction, "Only authorized auctions can mint");
+        _;
+    }
 
     constructor() ERC721("DemoNFT", "DNFT") {}
 
-    function mintDemo(address _to, uint256 _tokenId, string memory _tokenURI) onlyOwner public {
-        require(owner() != _to, "Recipient cannot be the owner of the contract");
+    function authorizeAuction(address _auction) onlyOwner() public {
+        authorizedAuction = _auction;
+    }
 
-        _safeMint(_to, _tokenId);
-        _setTokenURI(_tokenId, _tokenURI);
+    function mintDemo(uint256 _tokenId) onlyAuction() public {
+        // require(_msgSender() == authorizedAuction, "Only authorized address can mint!");
+
+        _safeMint(_msgSender(), _tokenId);
     }
 }

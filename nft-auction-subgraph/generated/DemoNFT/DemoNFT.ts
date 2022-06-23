@@ -348,6 +348,36 @@ export class ApproveCall__Outputs {
   }
 }
 
+export class AuthorizeAuctionCall extends ethereum.Call {
+  get inputs(): AuthorizeAuctionCall__Inputs {
+    return new AuthorizeAuctionCall__Inputs(this);
+  }
+
+  get outputs(): AuthorizeAuctionCall__Outputs {
+    return new AuthorizeAuctionCall__Outputs(this);
+  }
+}
+
+export class AuthorizeAuctionCall__Inputs {
+  _call: AuthorizeAuctionCall;
+
+  constructor(call: AuthorizeAuctionCall) {
+    this._call = call;
+  }
+
+  get _auction(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class AuthorizeAuctionCall__Outputs {
+  _call: AuthorizeAuctionCall;
+
+  constructor(call: AuthorizeAuctionCall) {
+    this._call = call;
+  }
+}
+
 export class MintDemoCall extends ethereum.Call {
   get inputs(): MintDemoCall__Inputs {
     return new MintDemoCall__Inputs(this);
@@ -365,16 +395,8 @@ export class MintDemoCall__Inputs {
     this._call = call;
   }
 
-  get _to(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
   get _tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get _tokenURI(): string {
-    return this._call.inputValues[2].value.toString();
+    return this._call.inputValues[0].value.toBigInt();
   }
 }
 

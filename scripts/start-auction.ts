@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
+import networks from "/Users/maksimdimitrov/Projects/hardhat-graph-demo/nft-auction-subgraph/networks.json";
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -14,12 +15,23 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
 
-  await greeter.deployed();
+  const Auction = await ethers.getContractFactory("NFTAuction");
+  const auction = await Auction.attach(networks.localhost.NFTAuction.address);
 
-  console.log("Greeter deployed to:", greeter.address);
+  // await auction.deployed();
+
+  const Demo = await ethers.getContractFactory("DemoNFT");
+  const demo = await Demo.attach(networks.localhost.DemoNFT.address);
+
+  // await demo.deployed();
+
+  await demo.authorizeAuction(auction.address);
+  await auction.setTokenAddress(demo.address);
+
+  await auction["startAuction(uint256)"](1, {
+    value: ethers.utils.parseEther("1"),
+  });
 }
 
 // We recommend this pattern to be able to use async/await everywhere

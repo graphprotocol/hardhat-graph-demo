@@ -120,6 +120,19 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_auction",
+        "type": "address"
+      }
+    ],
+    "name": "authorizeAuction",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "owner",
         "type": "address"
       }
@@ -181,19 +194,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_to",
-        "type": "address"
-      },
-      {
         "internalType": "uint256",
         "name": "_tokenId",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_tokenURI",
-        "type": "string"
       }
     ],
     "name": "mintDemo",

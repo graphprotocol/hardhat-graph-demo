@@ -68,6 +68,15 @@ export class Demo extends Entity {
   set transfers(value: Array<string>) {
     this.set("transfers", Value.fromStringArray(value));
   }
+
+  get auctions(): Array<string> {
+    let value = this.get("auctions");
+    return value!.toStringArray();
+  }
+
+  set auctions(value: Array<string>) {
+    this.set("auctions", Value.fromStringArray(value));
+  }
 }
 
 export class DemoTransfer extends Entity {
@@ -126,5 +135,133 @@ export class DemoTransfer extends Entity {
 
   set to(value: Bytes) {
     this.set("to", Value.fromBytes(value));
+  }
+}
+
+export class Auction extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Auction entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Auction must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Auction", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Auction | null {
+    return changetype<Auction | null>(store.get("Auction", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get seller(): Bytes {
+    let value = this.get("seller");
+    return value!.toBytes();
+  }
+
+  set seller(value: Bytes) {
+    this.set("seller", Value.fromBytes(value));
+  }
+
+  get winner(): Bytes | null {
+    let value = this.get("winner");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set winner(value: Bytes | null) {
+    if (!value) {
+      this.unset("winner");
+    } else {
+      this.set("winner", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get token(): string {
+    let value = this.get("token");
+    return value!.toString();
+  }
+
+  set token(value: string) {
+    this.set("token", Value.fromString(value));
+  }
+
+  get startDate(): BigInt {
+    let value = this.get("startDate");
+    return value!.toBigInt();
+  }
+
+  set startDate(value: BigInt) {
+    this.set("startDate", Value.fromBigInt(value));
+  }
+
+  get endDate(): BigInt | null {
+    let value = this.get("endDate");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set endDate(value: BigInt | null) {
+    if (!value) {
+      this.unset("endDate");
+    } else {
+      this.set("endDate", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get status(): string {
+    let value = this.get("status");
+    return value!.toString();
+  }
+
+  set status(value: string) {
+    this.set("status", Value.fromString(value));
+  }
+
+  get startPrice(): BigInt {
+    let value = this.get("startPrice");
+    return value!.toBigInt();
+  }
+
+  set startPrice(value: BigInt) {
+    this.set("startPrice", Value.fromBigInt(value));
+  }
+
+  get finalPrice(): BigInt | null {
+    let value = this.get("finalPrice");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set finalPrice(value: BigInt | null) {
+    if (!value) {
+      this.unset("finalPrice");
+    } else {
+      this.set("finalPrice", Value.fromBigInt(<BigInt>value));
+    }
   }
 }

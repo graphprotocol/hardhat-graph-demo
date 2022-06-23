@@ -8,36 +8,35 @@ import {
   newMockEvent,
   createMockedFunction,
   afterAll,
-  logStore,
 } from "matchstick-as";
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { Demo } from "../generated/schema";
 import { Transfer } from "../generated/DemoNFT/DemoNFT";
 import { handleTransfer } from "../src/demo-nft";
 
-beforeAll(() => {
-  const tokenId = ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(123));
+// beforeAll(() => {
+//   const tokenId = ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(123));
 
-  createMockedFunction(
-    Address.fromString("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"),
-    "tokenURI",
-    "tokenURI(uint256):(string)"
-  )
-  .withArgs([tokenId])
-  .returns([ethereum.Value.fromString("demoipfshash")]);
+//   createMockedFunction(
+//     Address.fromString("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"),
+//     "tokenURI",
+//     "tokenURI(uint256):(string)"
+//   )
+//     .withArgs([tokenId])
+//     .returns([ethereum.Value.fromString("demoipfshash")]);
 
-  mockIpfsFile("demoipfshash", "./nft-auction-subgraph/tests/.ipfs/demo-nft.json");
-});
+//   mockIpfsFile("demoipfshash", "./nft-auction-subgraph/tests/.ipfs/demo-nft.json");
+// });
 
 afterAll(() => {
   clearStore();
 });
 
-describe("Transfer DemoNFT event", () => {
+describe("DemoNFT Transfer event", () => {
   beforeAll(() => {
     const transferEvent = changetype<Transfer>(newMockEvent());
     transferEvent.address = Address.fromString("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0");
-    transferEvent.parameters = new Array();
+    transferEvent.parameters = [];
     transferEvent.parameters.push(
       new ethereum.EventParam(
         "from",
@@ -89,12 +88,12 @@ describe("Transfer DemoNFT event", () => {
 
   test("DemoNFT should have DemoTransfers", () => {
     const demo = Demo.load("123")!;
-    assert.i32Equals(1, demo.transfers.length);
+    assert.i32Equals(demo.transfers.length, 1);
   });
 
   test("DemoTransfer should have correct fields", () => {
     const demo = Demo.load("123")!;
-    const transferId = demo.transfers[demo.transfers.length - 1];
+    const transferId = demo.transfers[0];
 
     assert.fieldEquals(
       "DemoTransfer",
@@ -102,6 +101,7 @@ describe("Transfer DemoNFT event", () => {
       "from",
       "0x0000000000000000000000000000000000000001"
     );
+
     assert.fieldEquals(
       "DemoTransfer",
       transferId,
@@ -109,6 +109,5 @@ describe("Transfer DemoNFT event", () => {
       "0x0000000000000000000000000000000000000002"
     );
     assert.fieldEquals("DemoTransfer", transferId, "token", "123");
-    logStore();
   });
 });
