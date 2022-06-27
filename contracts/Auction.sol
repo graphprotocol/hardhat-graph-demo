@@ -26,7 +26,7 @@ contract NFTAuction is Ownable, IERC721Receiver {
     address private tokenContractAddress;
     uint256 private auctionId = 1;
     uint256 public duration = 5 days;
-    uint256 public bidIncrement = 0.01 ether;
+    uint256 public bidIncrement = 0.1 ether;
 
     modifier tokenContractSet() {
         require(tokenContractAddress != address(0), "Token contract address can't be zero address");
