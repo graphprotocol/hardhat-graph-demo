@@ -16,5 +16,6 @@ export function handleTransfer(event: TransferEvent): void {
   demoTransfer.from = event.params.from;
   demoTransfer.to = event.params.to;
   demoTransfer.token = id;
+  demoTransfer.timestamp = event.block.timestamp;
   demoTransfer.save();
 }

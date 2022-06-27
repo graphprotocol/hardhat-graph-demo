@@ -11,6 +11,7 @@ type Transfer @entity {
   token: Demo!
   from: Bytes! # address
   to: Bytes! # address
+  timestamp: BigInt!
 }
 
 type Auction @entity {
@@ -31,4 +32,14 @@ type Bid @entity {
   auction: Auction!
   bidder: Bytes! # address
   amount: BigInt!
+  timestamp: BigInt!
+}
+
+type Withdraw @entity {
+  id: ID!
+  token: Demo!
+  amount: BigInt!
+  to: Bytes! # address
+  success: Boolean!
+  timestamp: BigInt!
 }
