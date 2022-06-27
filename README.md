@@ -23,8 +23,8 @@ A repository demonstrating how the hardhat-graph plugin can be used to allow dev
 6. Create a subgraph on the local hardhat node by running `yarn create-local` or `npm run create-local`
 7. Deploy the subgraph on the local hardhat node by running `yarn deploy-local` or `npm run deploy-local`
 8. Now you can interact with the contract by running the scripts in the `scripts` directory with `npx hardhat run <script>`:
-  - `scripts/start-auction.ts` - will mint and open an auction for an nft with ID 1
-  - `scripts/start-auction-minted.ts` - will mint and transfer an nft to a "person", then that person will open and Auction
-  - `scripts/demo1_bids.ts` - will create several bids for the NFT with ID 1
-  - `scripts/demo2_bids.ts` - will create several bids for the NFT with ID 2
+  - `scripts/start-auction.ts` - will mint and open an auction for a DemoNFT with ID 1
+  - `scripts/start-auction-minted.ts` - will mint and transfer a DemoNFT with ID 2 to a "person", then that "person" will open and Auction
+  - `scripts/demo1_bids.ts` - will create several bids for the DemoNFT with ID 1
+  - `scripts/demo2_bids.ts` - will create several bids for the DemoNFT with ID 2
 9. You can query the subgraph by opening the following url in your browser `http://127.0.0.1:8000/subgraphs/name/nft-auction/graphql`
