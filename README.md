@@ -1,46 +1,30 @@
-# Advanced Sample Hardhat Project
+# Hardhat-graph Demo
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+A repository demonstrating how the hardhat-graph plugin can be used to allow devs to simultaniously develop and test their contracts and subgraphs, and how to index their contract by running local grah node against a local hardhat node.
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+# Prequisites:
+1. Run `yarn` or `npm install` to install the dependencies
+2. Run `yarn codegen` or `npm run codegen`
 
-Try running some of the following tasks:
+# Run matchstick test:
+1. Just run `yarn graph-test` or `npm run graph-test`
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.ts
-TS_NODE_FILES=true npx ts-node scripts/deploy.ts
-npx eslint '**/*.{js,ts}'
-npx eslint '**/*.{js,ts}' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
-```
+# Run hardhat tests:
+1. Just run `npx hardhat test`
 
-# Etherscan verification
-
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
-
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
-
-```shell
-hardhat run --network ropsten scripts/deploy.ts
-```
-
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
-
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
-
-# Performance optimizations
-
-For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+# How to index the contract on localhost network:
+1. You will need 3 terminal windows/tabs open
+2. In one of the windows/tabs run `yarn hardhat-local` or `npm run hardhat-local`
+3. In another window/tab run `yarn graph-local` or `npm run graph-local`
+4. Deploy the contracts:
+  - `npx hardhat deploy --contract-name DemoNFT`
+  - `npx hardhat deploy --contract-name NFTAuction`
+5. Build the subgraph by executing `yarn build --network localhost` or `npm run build --network localhost`
+6. Create a subgraph on the local hardhat node by running `yarn create-local` or `npm run create-local`
+7. Deploy the subgraph on the local hardhat node by running `yarn deploy-local` or `npm run deploy-local`
+8. Now you can interact with the contract by running the scripts in the `scripts` directory with `npx hardhat run <script>`:
+  - `scripts/start-auction.ts` - will mint and open an auction for an nft with ID 1
+  - `scripts/start-auction-minted.ts` - will mint and transfer an nft to a "person", then that person will open and Auction
+  - `scripts/demo1_bids` - will create several bids for the NFT with ID 1
+  - `scripts/demo2_bids` - will create several bids for the NFT with ID 2
+9. You can query the subgraph by opening the following url in your browser `http://127.0.0.1:8000/subgraphs/name/nft-auction/graphql`
