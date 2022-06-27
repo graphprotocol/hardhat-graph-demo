@@ -1,4 +1,4 @@
-import { ethers } from "hardhat";
+import hre, { ethers } from "hardhat";
 import networks from "../nft-auction-subgraph/networks.json";
 
 async function main() {
@@ -8,12 +8,9 @@ async function main() {
   const Demo = await ethers.getContractFactory("DemoNFT");
   const demo = Demo.attach(networks.localhost.DemoNFT.address);
 
-  await demo.authorizeAuction(auction.address);
-  await auction.setTokenAddress(demo.address);
+  await hre.network.provider.send("evm_increaseTime", [5 * 24 * 60 * 60]);
 
-  await auction["startAuction(uint256)"](1, {
-    value: ethers.utils.parseEther("0.01"),
-  });
+  await auction.endAuction(2);
 }
 
 main().catch((error) => {

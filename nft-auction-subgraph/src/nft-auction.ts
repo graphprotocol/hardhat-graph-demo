@@ -41,7 +41,7 @@ export function handleAuctionEnded(event: AuctionEnded): void {
 
 export function handleWithdraw(event: WithdrawEvent): void {
   const withdraw = new Withdraw(
-    event.params.to.toString() +
+    event.params.to.toHexString() +
       "-" +
       event.params.tokenId.toString() +
       "-" +

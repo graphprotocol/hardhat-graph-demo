@@ -65,9 +65,9 @@ describe("DemoNFT Transfer event", () => {
     handleTransfer(transferEvent);
   });
 
-  test("Should create a new DemoNFT and TransferDemo", () => {
+  test("Should create a new DemoNFT and Transfer", () => {
     assert.entityCount("Demo", 1);
-    assert.entityCount("DemoTransfer", 1);
+    assert.entityCount("Transfer", 1);
   });
 
   test("DemoNFT should have correct fields", () => {
@@ -86,28 +86,28 @@ describe("DemoNFT Transfer event", () => {
     );
   });
 
-  test("DemoNFT should have DemoTransfers", () => {
+  test("DemoNFT should have Transfers", () => {
     const demo = Demo.load("123")!;
     assert.i32Equals(demo.transfers.length, 1);
   });
 
-  test("DemoTransfer should have correct fields", () => {
+  test("Transfer should have correct fields", () => {
     const demo = Demo.load("123")!;
     const transferId = demo.transfers[0];
 
     assert.fieldEquals(
-      "DemoTransfer",
+      "Transfer",
       transferId,
       "from",
       "0x0000000000000000000000000000000000000001"
     );
 
     assert.fieldEquals(
-      "DemoTransfer",
+      "Transfer",
       transferId,
       "to",
       "0x0000000000000000000000000000000000000002"
     );
-    assert.fieldEquals("DemoTransfer", transferId, "token", "123");
+    assert.fieldEquals("Transfer", transferId, "token", "123");
   });
 });
