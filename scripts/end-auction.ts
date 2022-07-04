@@ -5,9 +5,6 @@ async function main() {
   const Auction = await ethers.getContractFactory("NFTAuction");
   const auction = Auction.attach(networks.localhost.NFTAuction.address);
 
-  const Demo = await ethers.getContractFactory("DemoNFT");
-  const demo = Demo.attach(networks.localhost.DemoNFT.address);
-
   await hre.network.provider.send("evm_increaseTime", [5 * 24 * 60 * 60]);
 
   await auction.endAuction(2);
