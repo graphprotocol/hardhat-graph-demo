@@ -12,7 +12,7 @@ async function main() {
   await auction.setTokenAddress(demo.address);
 
   await auction["startAuction(uint256)"](1, {
-    value: ethers.utils.parseEther("0.01"),
+    value: ethers.utils.parseEther("0.1"),
   });
 }
 

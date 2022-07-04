@@ -35,10 +35,10 @@ contract NFTAuction is Ownable, IERC721Receiver {
 
     struct Auction {
         uint256 id;
-        uint265 startPrice;
         address creator;
-        uint32 startDate;
-        uint32 endDate;
+        uint256 startDate;
+        uint256 endDate;
+        uint256 startPrice;
     }
 
     mapping(uint256 => bool) tokenIsAuctioned; // Used to check if token is currently auctioned
@@ -65,7 +65,7 @@ contract NFTAuction is Ownable, IERC721Receiver {
 
         uint256 startDate = block.timestamp;
 
-        Auction memory auction = Auction(auctionId,0 ,address(this), startDate, startDate + duration);
+        Auction memory auction = Auction(auctionId, address(this), startDate, startDate + duration, 0);
         tokenToAuction[_tokenId] = auction;
         tokenIsAuctioned[_tokenId] = true;
 
@@ -83,7 +83,7 @@ contract NFTAuction is Ownable, IERC721Receiver {
         DemoNFT.safeTransferFrom(_msgSender(), address(this), _tokenId);
 
         uint256 startDate = block.timestamp;
-        Auction memory auction = Auction(auctionId, _startPrice, _msgSender(), startDate, startDate + duration);
+        Auction memory auction = Auction(auctionId, _msgSender(), startDate, startDate + duration, _startPrice);
         tokenToAuction[_tokenId] = auction;
         tokenIsAuctioned[_tokenId] = true;
         tokenHighestBid[_tokenId] = _startPrice;
@@ -119,7 +119,7 @@ contract NFTAuction is Ownable, IERC721Receiver {
     function endAuction(uint256 _tokenId) tokenContractSet() external {
         require(tokenIsAuctioned[_tokenId] == true, "Token not auctioned");
         require(block.timestamp >= tokenToAuction[_tokenId].endDate, "Auction duration is not over");
-        // require(_msgSender() == tokenToAuction[_tokenId].creator || _msgSender() == owner(), "Only creator or owner can end the auction");
+        require(_msgSender() == tokenToAuction[_tokenId].creator || _msgSender() == owner(), "Only creator or owner can end the auction");
 
         address winner = tokenHighestBidder[_tokenId];
         delete tokenHighestBidder[_tokenId];
