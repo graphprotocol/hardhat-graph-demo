@@ -6,7 +6,7 @@ import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 import { task } from "hardhat/config";
-import "hardhat-graph";
+import "@graphprotocol/hardhat-graph";
 
 task("deploy", "Deploys the passed contract")
   .addParam("contractName", "The name of the contract")
@@ -34,7 +34,7 @@ const config = {
   defaultNetwork: "localhost",
   networks: {
     localhost: {
-      url: "http://0.0.0.0:8545",
+      url: "http://localhost:8545",
     },
     hardhat: {},
   },
