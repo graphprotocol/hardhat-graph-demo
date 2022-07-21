@@ -1,7 +1,7 @@
 {
   "name": "hardhat-project",
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.32.0",
+    "@graphprotocol/graph-cli": "^0.33.0",
     "@graphprotocol/graph-ts": "^0.27.0",
     "@graphprotocol/hardhat-graph": "https://github.com/graphprotocol/hardhat-graph",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
