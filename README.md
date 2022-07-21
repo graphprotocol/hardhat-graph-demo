@@ -28,9 +28,15 @@ A repository demonstrating how the [hardhat-graph](https://github.com/graphproto
 
 6. Create a subgraph on the local hardhat node by running `yarn create-local` or `npm run create-local`
 7. Deploy the subgraph on the local hardhat node by running `yarn deploy-local` or `npm run deploy-local`
+
+*NOTE: Since graph-cli `0.32.0`, the `--network` option is available for the `deloy` command, so now you can run the `deploy-local` script with `--network localhost` options and skip step 5*
+
 8. Now you can interact with the contract by running the scripts in the `scripts` directory with `npx hardhat run <script>`:
   - `scripts/start-auction.ts` - will mint and open an auction for a DemoNFT with ID 1
-  - `scripts/start-auction-minted.ts` - will mint and transfer a DemoNFT with ID 2 to a "person", then that "person" will open and Auction
+  - `scripts/start-auction-minted.ts` - will mint and transfer a DemoNFT with ID 2 to a new owner, then that owner will open an Auction
   - `scripts/demo1_bids.ts` - will create several bids for the DemoNFT with ID 1
   - `scripts/demo2_bids.ts` - will create several bids for the DemoNFT with ID 2
+  
+ *NOTE: The bid system works in the following way. Instead of returning the previous bid when someone else submits a higher bid, the contract keeps and tracks the amount each bidder has commited so far for that Auction, and expects the next bid to be equal to `(current highest bid + bid step) - amount the bidder has bid so far`. For example if bidder1 has made an itial bid of 1 eth, bidder2 should submit 1,1 eth. If bidder1 wants to outbid bidder2, they don't have to send the whole amount, e.g. 1,2 eth, but only 0.2eth, because the inital 1eth is kept and tracked by the contract. After the Auction has ended, every bidder can withdraw their eth from the contract.
+ 
 9. You can query the subgraph by opening the following url in your browser `http://127.0.0.1:8000/subgraphs/name/nft-auction/graphql`
