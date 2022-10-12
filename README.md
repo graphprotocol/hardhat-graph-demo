@@ -4,7 +4,7 @@ A repository demonstrating how the [hardhat-graph](https://github.com/graphproto
 
 # Prequisites:
 1. Run `yarn` or `npm install` to install the dependencies
-2. Run `yarn codegen` or `npm run codegen`
+2. Run `yarn graph-codegen` or `npm run graph-codegen`
 
 # Run matchstick test:
 1. Just run `yarn graph-test` or `npm run graph-test`
