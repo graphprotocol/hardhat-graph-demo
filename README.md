@@ -26,10 +26,10 @@ A repository demonstrating how the [hardhat-graph](https://github.com/graphproto
 
 *NOTE: The `--network` option will tell the `build` command to get the latest configurations (address and startBlock) for the `localhost` network from the `networks.json` config file and update the `subgraph.yaml` file. (Soon this step will be redundant, because the network option will be directly added to the deploy command)*
 
-6. Create a subgraph on the local hardhat node by running `yarn create-local` or `npm run create-local`
-7. Deploy the subgraph on the local hardhat node by running `yarn deploy-local` or `npm run deploy-local`
+6. Create a subgraph on the local graph node by running `yarn create-local` or `npm run create-local`
+7. Deploy the subgraph on the local graph node by running `yarn deploy-local` or `npm run deploy-local`
 
-*NOTE: Since graph-cli `0.32.0`, the `--network` option is available for the `deloy` command, so now you can run the `deploy-local` script with `--network localhost` options and skip step 5*
+*NOTE: Since graph-cli `0.32.0`, the `--network` option is available for the `deloy` command, so now you can run `yarn deploy-local --network localhost` or `npm run deploy-local -- --network localhost` and skip step 5*
 
 8. Now you can interact with the contract by running the scripts in the `scripts` directory with `npx hardhat run <script>`:
   - `scripts/start-auction.ts` - will mint and open an auction for a DemoNFT with ID 1
